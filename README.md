@@ -20,6 +20,7 @@ The assignment has two parts:
 | `BankOfCanadaExchangeRate.2026.csv` | Bank of Canada annual exchange rates, 2017 to 2025 |
 | `README.md` | This file: project description and write-up |
 | `A1_Writeup.md` | Assignment write-up: repo link, program output, LLM model and prompts, comparison |
+| `.gitignore` | Tells Git to skip Python cache and virtual environment folders |
 
 ## Data
 
@@ -46,6 +47,10 @@ In line with Lecture #4, the data members are private (double underscore), and t
 ### User input
 
 The program uses `input()` to ask for the amount, the "from" currency and the "to" currency. As the assignment allows, it assumes the user enters valid values, so it does not validate them. The result is rounded to the nearest penny and printed with a dollar sign and the currency code.
+
+## Requirements
+
+Python 3 with the standard library only (the `csv` module). No third-party packages are needed, so there is no `requirements.txt`.
 
 ## How to Run
 
