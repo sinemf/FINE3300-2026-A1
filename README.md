@@ -123,9 +123,13 @@ Convert to (USD or CAD): USD
 $71,540.99 USD
 ```
 
-### Comparison of my code and the AI's code
+### Key differences
 
-For Part 2, I gave the single prompt above to Claude Opus 5.5 (Anthropic). Its first answer ran correctly, so I did not need any follow-up prompts. Both programs give identical results ($100,000 USD = $139,780.00 CAD and $100,000 CAD = $71,540.99 USD), and both have the same overall design: an `ExchangeRates` class reads the CSV with Python's `csv` module and takes the `FXAUSDCAD` rate from the last row, and a `convert` method multiplies by the rate for USD to CAD and divides by it for CAD to USD. The AI's version is about half as long (32 lines versus 64) and more compact. It uses `csv.DictReader` to look up the column by name, reads the file directly in `__init__`, uses f-strings and docstrings, and adds `.strip()` to remove extra spaces from the user's input. My version follows the object-oriented principles from Lecture #4 more closely. The rate, date and file name are private members (double underscore), the file is read in a private helper method, and the main program gets the values through the public `get_rate()` and `get_date()` methods. In the AI's version the rate is a public attribute, so any code can overwrite it: setting `rates.usd_to_cad = 2.0` changes every later conversion. In my version the rate can still be reached through Python's name mangling (`rates._ExchangeRates__usd_cad`), as Lecture #4 notes, but it can't be changed by accident. My `convert` method also converts the currency codes to upper case itself, while the AI's relies on the main program to do this. As a result, calling `rates.convert(100, "usd", "cad")` directly on the AI's class returns 71.54 instead of 139.78. Finally, my output gives more information: it shows the Bank of Canada rate and date used, as well as both the original and the converted amounts, while the AI's prints only the converted amount. Overall, the AI quickly produced correct, clean code from a high-level description, but I still had to test and review it to find the differences in encapsulation and input handling.
+- **Bug in the AI's code:** calling `rates.convert(100, "usd", "cad")` directly returns 71.54 instead of 139.78, because only its main program converts the currency codes to upper case. My `convert()` does this itself.
+- **Encapsulation:** the AI stores the rate in a public attribute that any code can overwrite. Mine keeps it private and returns it through `get_rate()`.
+- **Length and style:** the AI's file is shorter (38 lines versus 64) and uses `csv.DictReader`, f-strings and docstrings.
+
+The full comparison is in [`A1_Writeup.md`](A1_Writeup.md#d-comparison-of-my-code-and-the-llm-code).
 
 ## Sources
 
