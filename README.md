@@ -124,10 +124,13 @@ For Part 2, I gave the single prompt above to Claude Opus 5.5 (Anthropic). Its f
 
 ## Sources
 
-- ## AI Use Disclosure: For Part 2, I used Claude Opus 5.5 to generate `ExchangeRatesAI.py` from the prompt above.
 - Bank of Canada, annual exchange rates (`BankOfCanadaExchangeRate.2026.csv`, provided on Canvas)
 - FINE 3300 Lecture #3 and #4 slides, and the `Bond.py` and `Lottery.py` class examples (F. Habib, 2025)
 - Python documentation: `csv` module, https://docs.python.org/3/library/csv.html
+
+## AI Use Disclosure
+
+- For Part 2, I used Claude Opus 5.5 to generate `ExchangeRatesAI.py` from the prompt above.
 
 ## Author
 
