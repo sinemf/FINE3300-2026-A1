@@ -97,11 +97,29 @@ _TODO: exact model name and version_
 >
 > In the main part of the program, use input() to ask the user for the amount, the "from" currency and the "to" currency. Print the result rounded to the nearest penny, with a dollar sign and the currency code (for example $139,780.00 CAD). Assume the user always enters valid input, so no validation is needed. Use only the Python standard library.
 
-_TODO: add any follow-up prompts here if the first answer was not correct._
+No follow-up prompts were needed. The first response produced the correct output.
+
+### Testing the AI's code
+
+I ran `ExchangeRatesAI.py` in VS Code without changing it. It gives the same results as my version:
+
+```text
+Enter the amount: 100000
+Convert from (USD or CAD): USD
+Convert to (USD or CAD): CAD
+$139,780.00 CAD
+```
+
+```text
+Enter the amount: 100000
+Convert from (USD or CAD): CAD
+Convert to (USD or CAD): USD
+$71,540.99 USD
+```
 
 ### Comparison of my code and the AI's code
 
-_TODO: write this after testing ExchangeRatesAI.py._
+For Part 2, I gave the single prompt above to _[model name]_. Its first answer ran correctly, so I did not need any follow-up prompts. Both programs give identical results ($100,000 USD = $139,780.00 CAD and $100,000 CAD = $71,540.99 USD), and both have the same overall design: an `ExchangeRates` class reads the CSV with Python's `csv` module and takes the `FXAUSDCAD` rate from the last row, and a `convert` method multiplies by the rate for USD to CAD and divides by it for CAD to USD. The AI's version is about half as long (32 lines versus 64) and more compact. It uses `csv.DictReader` to look up the column by name, reads the file directly in `__init__`, uses f-strings and docstrings, and adds `.strip()` to remove extra spaces from the user's input. My version follows the object-oriented principles from Lecture #4 more closely. The rate, date and file name are private members (double underscore), the file is read in a private helper method, and the main program gets the values through the public `get_rate()` and `get_date()` methods. In the AI's version the rate is a public attribute, so any code can overwrite it: setting `rates.usd_to_cad = 2.0` changes every later conversion. My `convert` method also converts the currency codes to upper case itself, while the AI's relies on the main program to do this. As a result, calling `rates.convert(100, "usd", "cad")` directly on the AI's class returns 71.54 instead of 139.78. Finally, my output gives more information: it shows the Bank of Canada rate and date used, as well as both the original and the converted amounts, while the AI's prints only the converted amount. Overall, the AI quickly produced correct, clean code from a high-level description, but I still had to test and review it to find the differences in encapsulation and input handling.
 
 ## Author
 

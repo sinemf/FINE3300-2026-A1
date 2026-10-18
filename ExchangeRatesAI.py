@@ -1,0 +1,32 @@
+import csv
+
+
+class ExchangeRates:
+    """Converts amounts between USD and CAD using Bank of Canada annual rates."""
+
+    def __init__(self, file_name):
+        with open(file_name, newline="") as file:
+            rows = list(csv.DictReader(file))
+
+        # The rows are in date order, so the last row has the latest rate.
+        # FXAUSDCAD is the number of Canadian dollars for 1 US dollar.
+        self.usd_to_cad = float(rows[-1]["FXAUSDCAD"])
+
+    def convert(self, amount, from_currency, to_currency):
+        """Convert amount from one currency (USD or CAD) to the other."""
+        if from_currency == to_currency:
+            return amount
+        if from_currency == "USD":
+            return amount * self.usd_to_cad
+        return amount / self.usd_to_cad
+
+
+if __name__ == "__main__":
+    rates = ExchangeRates("BankOfCanadaExchangeRate.2026.csv")
+
+    amount = float(input("Enter the amount: "))
+    from_currency = input("Convert from (USD or CAD): ").strip().upper()
+    to_currency = input("Convert to (USD or CAD): ").strip().upper()
+
+    result = rates.convert(amount, from_currency, to_currency)
+    print(f"${result:,.2f} {to_currency}")
